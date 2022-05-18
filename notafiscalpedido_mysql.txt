@@ -1,0 +1,47 @@
+CRIAR TABELA `Pedido` (
+	`id_pedido` INT NOT NULL AUTO_INCREMENT,
+	`id_cliente` INT NÃO NULO,
+	`ende_cliente` varchar(50) NOT NULL,
+	`data_pedido` DATETIME(50) NOT NULL,
+	`cnpj_cliente` TEXT(12) NOT NULL,
+	`tel_cliente` TEXT(15) NOT NULL,
+	CHAVE PRIMÁRIA (`id_pedido`)
+);
+
+CREATE TABLE `itemPedido` (
+	`id_itemPedido` INT(10,2) NOT NULL AUTO_INCREMENT,
+	`id_produto` INT NOT NULL,
+	`id_pedido` INT NOT NULL,
+	`descri_produto` varchar(100) NOT NULL,
+	`qtd_produto` DECIMAL(255) NOT NULL,
+	`preco_produto` DECIMAL(10,2) NOT NULL,
+	CHAVE PRIMÁRIA (`id_itemPedido`)
+);
+
+CRIAR TABELA `Produto` (
+	`id_produto` INT NOT NULL AUTO_INCREMENT,
+	`descrição` TEXT(100) NOT NULL,
+	`marca` varchar(100) NOT NULL,
+	`estoque` INT(100) NOT NULL,
+	`valor_produto` DECIMAL(10,2) NOT NULL,
+	CHAVE PRIMÁRIA (`id_produto`)
+);
+
+CRIAR TABELA `Cliente` (
+	`id_cliente` INT NOT NULL AUTO_INCREMENT,
+	`cnpj_cliente` TEXT(15) NOT NULL,
+	`end_cliente` varchar(50) NOT NULL,
+	`tel_cliente` varchar(50) NOT NULL,
+	CHAVE PRIMÁRIA (`id_cliente`)
+);
+
+ALTER TABLE `Pedido` ADD CONSTRAINT `Pedido_fk0` FOREIGN KEY (`id_cliente`) REFERÊNCIAS `Cliente`(`id_cliente`);
+
+ALTER TABLE `itemPedido` ADD CONSTRAINT `itemPedido_fk0` FOREIGN KEY (`id_pedido`) REFERÊNCIAS `Pedido`(`id_pedido`);
+
+ALTER TABLE `Produto` ADD CONSTRAINT `Produto_fk0` FOREIGN KEY (`id_produto`) REFERÊNCIAS `itemPedido`(`id_produto`);
+
+
+
+
+
